@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:datafusion/models/temp_sensor.dart';
-import 'package:datafusion/models/world_object_2d.dart';
+import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:scidart/numdart.dart';
 
 
