@@ -12,6 +12,8 @@ class VirtualTempSensor2D extends TempSensor {
 
   VirtualTempSensor2D(this.errorRate, this.object);
 
+
+
   @override
   Stream<Matrix> measureTemps() async*{
     var random = Random();
@@ -26,8 +28,8 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
   Matrix addConstantNoise(Matrix source, int rows, int columns, Random random){
-
-    var result = Matrix.fill(rows, columns, randomDelta(random));
+    var delta = randomDelta(random);
+    var result = Matrix.fill(rows, columns, delta);
     for (int i = 0; i < rows; i++) { //
       for (int j = 0; j < columns; j++) { // bColumn
         result[i][j] += source[i][j];
@@ -37,10 +39,10 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
   void addRandomNoise(Matrix noised, int rows, int columns, Random random){
-    var k = random.nextInt(rows*columns ~/ 10);
+    var k = random.nextInt((rows*columns) ~/ 10);
     for (int c = 0; c < k; c++) {
-      var i = random.nextInt(rows) + 1;
-      var j = random.nextInt(columns) + 1;
+      var i = random.nextInt(rows);
+      var j = random.nextInt(columns);
       var delta = randomDelta(random);
 
       noised[i][j] += delta;

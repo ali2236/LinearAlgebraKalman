@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fast_noise/fast_noise.dart';
 import 'package:linalg/matrix.dart';
 
@@ -7,7 +9,9 @@ class VirtualObject2D {
   final Matrix surfaceTemps;
   VirtualObject2D(this.width, this.height, this.surfaceTemps);
 
-  Stream<Matrix> get temps => null;
+  Stream<Matrix> get temps => _controller.stream;
+
+  StreamController<Matrix> _controller = StreamController.broadcast();
 
   factory VirtualObject2D.generate(int width, int height, double minTemp, double maxTemp){
     var arr2d = noise2(width, height,
@@ -27,4 +31,7 @@ class VirtualObject2D {
 
     return VirtualObject2D(width, height, temps);
   }
+
+  void emit() => _controller.sink.add(surfaceTemps);
+
 }

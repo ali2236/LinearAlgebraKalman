@@ -1,4 +1,4 @@
-import 'package:datafusion/IKalmanFilter.dart';
+import 'package:datafusion/kalman/IKalmanFilter.dart';
 import 'package:linalg/linalg.dart';
 import 'KalmanFilter.dart';
 
