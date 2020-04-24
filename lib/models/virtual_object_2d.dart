@@ -1,13 +1,13 @@
 import 'package:fast_noise/fast_noise.dart';
-import 'package:scidart/numdart.dart';
+import 'package:linalg/matrix.dart';
 
 class VirtualObject2D {
   final int width;
   final int height;
-  final Array2d surfaceTemps;
+  final Matrix surfaceTemps;
   VirtualObject2D(this.width, this.height, this.surfaceTemps);
 
-  Stream<Array2d> get temps => null;
+  Stream<Matrix> get temps => null;
 
   factory VirtualObject2D.generate(int width, int height, double minTemp, double maxTemp){
     var arr2d = noise2(width, height,
@@ -18,8 +18,8 @@ class VirtualObject2D {
         frequency: 0.07,
         cellularReturnType: CellularReturnType.Distance2Add);
 
-    var temps = Array2d(arr2d
-        .map((l) => Array(l
+    var temps = Matrix(arr2d
+        .map((l) => (l
         .map((d) =>
     ((d * (maxTemp - minTemp)).abs() + minTemp))
         .toList()))

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
-import 'package:scidart/numdart.dart';
+import 'package:linalg/linalg.dart';
 
 
 class VirtualTempSensor2D extends TempSensor {
@@ -13,21 +13,21 @@ class VirtualTempSensor2D extends TempSensor {
   VirtualTempSensor2D(this.errorRate, this.object);
 
   @override
-  Stream<Array2d> measureTemps() async*{
+  Stream<Matrix> measureTemps() async*{
     var random = Random();
     var temps = object.temps;
     await for(var temp in temps){
-      var rows = temp.row;
-      var columns = temp.column;
+      var rows = temp.m;
+      var columns = temp.n;
       var noised = addConstantNoise(temp, rows, columns, random);
       addRandomNoise(noised, rows, columns, random);
       yield noised;
     }
   }
 
-  Array2d addConstantNoise(Array2d source, int rows, int columns, Random random){
+  Matrix addConstantNoise(Matrix source, int rows, int columns, Random random){
 
-    var result = Array2d.fixed(rows, columns, initialValue: randomDelta(random));
+    var result = Matrix.fill(rows, columns, randomDelta(random));
     for (int i = 0; i < rows; i++) { //
       for (int j = 0; j < columns; j++) { // bColumn
         result[i][j] += source[i][j];
@@ -36,7 +36,7 @@ class VirtualTempSensor2D extends TempSensor {
     return result;
   }
 
-  void addRandomNoise(Array2d noised, int rows, int columns, Random random){
+  void addRandomNoise(Matrix noised, int rows, int columns, Random random){
     var k = random.nextInt(rows*columns ~/ 10);
     for (int c = 0; c < k; c++) {
       var i = random.nextInt(rows) + 1;

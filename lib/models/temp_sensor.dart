@@ -1,6 +1,6 @@
 import 'package:datafusion/models/sensor.dart';
-import 'package:scidart/numdart.dart';
+import 'package:linalg/linalg.dart';
 
 abstract class TempSensor extends Sensor {
-  Stream<Array2d> measureTemps();
+  Stream<Matrix> measureTemps();
 }

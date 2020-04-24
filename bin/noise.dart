@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:fast_noise/fast_noise.dart';
-import 'package:scidart/numdart.dart';
+import 'package:linalg/linalg.dart';
 
 void main() {
   var size = 3;
@@ -19,7 +17,7 @@ void main() {
   double min_temp = 273;
   double max_temp = 400;
 
-  var arr = Array2d(
-      arr2d.map((l) => Array(l.map((d) => ((d * (max_temp - min_temp)).abs() + min_temp).floorToDouble()).toList())).toList());
+  var arr = Matrix(
+      arr2d.map((l) => (l.map((d) => ((d * (max_temp - min_temp)).abs() + min_temp).floorToDouble()).toList())).toList());
   print(arr);
 }
