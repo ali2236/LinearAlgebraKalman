@@ -11,11 +11,10 @@ class MatrixCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var percent = (value - min) / (max - min);
     return Container(
       color: gradient.colors.first,
       child: Center(
-        child: Text(value.toString()),
+        child: Text(value.toString(), style: TextStyle(color: Colors.black)),
       ),
     );
   }

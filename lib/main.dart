@@ -1,6 +1,7 @@
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
+import 'package:datafusion/widgets/widget_sensor.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
 
@@ -30,13 +31,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static var min = 273.0;
-  static var max = 400.0;
-  var object = VirtualObject2D.generate(5, 5, min, max);
+  static var max = 420.0;
+  static var size = 5;
+  var object = VirtualObject2D.generate(size, size, min, max);
+  var sensor;
 
   @override
   void initState() {
     super.initState();
     startEmit();
+    sensor = VirtualTempSensor2D(20, object);
   }
 
   @override
@@ -64,37 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Column(
-            children: List.generate(5, (i){
-              return Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Virtual Sensor 2D (${i+1}):',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 400,
-                    height: 220,
-                    child: VirtualTempDisplay(
-                      temps: VirtualTempSensor2D(2, object).measureTemps(),
-                      min: min,
-                      max: max,
-                    ),
-                  ),
-                ],
+            children: List.generate(1, (i){
+              return TempSensorDisplay2D(
+                sensor: sensor,
               );
             }),
           ),
-
         ],
       ),
-/*      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          object.emit();
-        },
-      ),*/
     );
   }
 
@@ -106,6 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> asyncEmit() async {
     object.emit();
-    await Future.delayed(Duration(milliseconds: 60));
+    await Future.delayed(Duration(milliseconds: 100));
   }
 }

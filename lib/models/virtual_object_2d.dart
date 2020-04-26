@@ -4,10 +4,10 @@ import 'package:fast_noise/fast_noise.dart';
 import 'package:linalg/matrix.dart';
 
 class VirtualObject2D {
-  final int width;
-  final int height;
+  final double minTemp;
+  final double maxTemp;
   final Matrix surfaceTemps;
-  VirtualObject2D(this.width, this.height, this.surfaceTemps);
+  VirtualObject2D(this.minTemp, this.maxTemp, this.surfaceTemps);
 
   Stream<Matrix> get temps => _controller.stream;
 
@@ -29,7 +29,7 @@ class VirtualObject2D {
         .toList()))
         .toList());
 
-    return VirtualObject2D(width, height, temps);
+    return VirtualObject2D(minTemp, maxTemp, temps);
   }
 
   void emit() => _controller.sink.add(surfaceTemps);

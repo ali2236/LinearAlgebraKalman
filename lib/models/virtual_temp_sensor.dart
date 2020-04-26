@@ -10,19 +10,21 @@ class VirtualTempSensor2D extends TempSensor {
   final double errorRate;
   final VirtualObject2D object;
 
-  VirtualTempSensor2D(this.errorRate, this.object);
+  VirtualTempSensor2D(this.errorRate, this.object) : super('Virtual Sensor 2D');
 
-
+  double _accuracy = 1.0;
+  double get accuracy => _accuracy;
 
   @override
   Stream<Matrix> measureTemps() async*{
     var random = Random();
     var temps = object.temps;
-    await for(var temp in temps){
-      var rows = temp.m;
-      var columns = temp.n;
-      var noised = addConstantNoise(temp, rows, columns, random);
+    await for(var source in temps){
+      var rows = source.m;
+      var columns = source.n;
+      var noised = addConstantNoise(source, rows, columns, random);
       addRandomNoise(noised, rows, columns, random);
+      _accuracy = _calculateAccuracy(source, noised);
       yield noised;
     }
   }
@@ -54,6 +56,23 @@ class VirtualTempSensor2D extends TempSensor {
     var amount = random.nextDouble() * errorRate;
     var delta = sign * amount;
     return delta;
+  }
+
+  double _calculateAccuracy(Matrix source, Matrix noised){
+    var rows = source.m;
+    var columns = source.n;
+    var min = object.minTemp;
+    var max = object.maxTemp;
+    var total = 0.0;
+
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        var percent = 1 - ((source[i][j] - min)/(max - min) - (noised[i][j] - min)/(max - min)).abs();
+        total += percent;
+      }
+    }
+
+    return (total / (rows * columns));
   }
 
 }
