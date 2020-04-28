@@ -17,7 +17,7 @@ abstract class KalmanFilter
   /// <exception cref="System.ArgumentException">thrown when the x0 matrix is not
   /// a column vector, or when the P0 matrix is not a square matrix of the same order
   /// as the number of state variables.</exception>
-  static void CheckInitialParameters(Matrix x0, Matrix P0)
+  static void checkInitialParameters(Matrix x0, Matrix P0)
   {
     // x0 should be a column vector
     if (x0.n != 1)

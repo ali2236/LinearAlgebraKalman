@@ -22,7 +22,7 @@ class DiscreteKalmanFilter implements IKalmanFilter {
   /// <param name="P0">The covariance of the initial state estimate. If unsure
   /// about initial state, set to a large value</param>
   DiscreteKalmanFilter(Matrix x0, Matrix P0) {
-    KalmanFilter.CheckInitialParameters(x0, P0);
+    KalmanFilter.checkInitialParameters(x0, P0);
 
     _x = x0;
     _p = P0;

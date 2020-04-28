@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     startEmit();
-    sensor = VirtualTempSensor2D(20, object);
+    sensor = VirtualTempSensor2D(30, object);
   }
 
   @override
