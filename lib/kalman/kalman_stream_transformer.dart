@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:datafusion/kalman/kalman_filter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:linalg/linalg.dart';
 
 class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
@@ -46,8 +47,8 @@ class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
   }
 
   void updateFilters(Matrix update) {
-    for (var i=0;i<update.m;i++) {
-      for (var j=0;j<update.n;j++) {
+    for (var i = 0; i < update.m; i++) {
+      for (var j = 0; j < update.n; j++) {
         var filter = _filters[i][j];
         var dt = _stopwatch.elapsedMilliseconds.toDouble() / 1000;
         filter.predict(
@@ -60,20 +61,15 @@ class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
         );
 
         filter.update(
-            Matrix(
-              [
-                [update[i][j]],
-                [0],
-              ],
-            ),
-            Matrix([
-              [1, 0],
-              [0, 1]
-            ]),
-            Matrix([
-              [20, 0],
-              [20, 0]
-            ]));
+          Matrix(
+            [
+              [update[i][j]],
+              [0],
+            ],
+          ),
+          Matrix.eye(2),
+          Matrix.eye(2).map((d) => d * 1000),
+        );
       }
     }
   }
