@@ -29,7 +29,7 @@ class _TempSensorDisplay2DState extends State<TempSensorDisplay2D> {
     super.initState();
     _ragular_stream = widget.sensor.measureTemps().asBroadcastStream();
     _kalman_stream = _ragular_stream
-        .transform(KalmanStreamTransformer(widget.sensor.object.maxTemp)).asBroadcastStream();
+        .transform(KalmanStreamTransformer()).asBroadcastStream();
     stream = _ragular_stream;
   }
 
