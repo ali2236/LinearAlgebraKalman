@@ -10,7 +10,7 @@ class VirtualTempSensor2D extends TempSensor {
   final double errorRate;
   final VirtualObject2D object;
 
-  VirtualTempSensor2D(this.errorRate, this.object) : super('Virtual Sensor 2D');
+  VirtualTempSensor2D(this.errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D');
 
   @override
   Stream<Matrix> measureTemps() async*{
@@ -19,14 +19,14 @@ class VirtualTempSensor2D extends TempSensor {
     await for(var source in temps){
       var rows = source.m;
       var columns = source.n;
-      var noised = addConstantNoise(source, rows, columns, random);
-      addRandomNoise(noised, rows, columns, random);
+      var noised = _addConstantNoise(source, rows, columns, random);
+      _addRandomNoise(noised, rows, columns, random);
       yield noised;
     }
   }
 
-  Matrix addConstantNoise(Matrix source, int rows, int columns, Random random){
-    var delta = randomDelta(random);
+  Matrix _addConstantNoise(Matrix source, int rows, int columns, Random random){
+    var delta = _randomDelta(random);
     var result = Matrix.fill(rows, columns, delta);
     for (int i = 0; i < rows; i++) { //
       for (int j = 0; j < columns; j++) { // bColumn
@@ -36,18 +36,18 @@ class VirtualTempSensor2D extends TempSensor {
     return result;
   }
 
-  void addRandomNoise(Matrix noised, int rows, int columns, Random random){
+  void _addRandomNoise(Matrix noised, int rows, int columns, Random random){
     var k = random.nextInt((rows*columns) ~/ 10);
     for (int c = 0; c < k; c++) {
       var i = random.nextInt(rows);
       var j = random.nextInt(columns);
-      var delta = randomDelta(random);
+      var delta = _randomDelta(random);
 
       noised[i][j] += delta;
     }
   }
 
-  double randomDelta(Random random){
+  double _randomDelta(Random random){
     var sign = random.nextBool() ? 1 : -1;
     var amount = random.nextDouble() * errorRate;
     var delta = sign * amount;

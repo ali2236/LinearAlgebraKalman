@@ -1,7 +1,8 @@
 import 'package:datafusion/models/temp_sensor.dart';
+import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
-import 'package:datafusion/widgets/widget_sensor.dart';
+import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
 
@@ -34,13 +35,20 @@ class _MyHomePageState extends State<MyHomePage> {
   static var max = 420.0;
   static var size = 5;
   var object = VirtualObject2D.generate(size, size, min, max);
-  var sensor;
+  List<VirtualTempSensor2D> sensors = [];
+  List<GlobalKey<TempSensorDisplay2DState>> _keys;
+  var _merger_key = GlobalKey<TempSensorDisplay2DState>();
 
   @override
   void initState() {
     super.initState();
     startEmit();
-    sensor = VirtualTempSensor2D(30, object);
+    var count = 5;
+    sensors = List.generate(count, (i) {
+      return VirtualTempSensor2D(30, object);
+    });
+
+    _keys = List.generate(count, (i) => GlobalKey<TempSensorDisplay2DState>());
   }
 
   @override
@@ -67,10 +75,28 @@ class _MyHomePageState extends State<MyHomePage> {
               max: max,
             ),
           ),
+          ButtonBar(
+            children: <Widget>[
+              RaisedButton(
+                child: Text('turn All Kalman Filters On'),
+                onPressed: () {
+                  _keys.forEach((key){
+                    key.currentState.turnKalmanFilterOn();
+                  });
+                  _merger_key.currentState.turnKalmanFilterOn();
+                },
+              ),
+            ],
+          ),
+          TempSensorDisplay2D(
+            key: _merger_key,
+            sensor: VirtualMergedTempSensor2D(sensors),
+          ),
           Column(
-            children: List.generate(1, (i){
+            children: List.generate(sensors.length, (i) {
               return TempSensorDisplay2D(
-                sensor: sensor,
+                key: _keys[i],
+                sensor: sensors[i],
               );
             }),
           ),
