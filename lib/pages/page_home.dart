@@ -1,11 +1,12 @@
-
 import 'package:datafusion/widgets/widget_app_card.dart';
+import 'package:datafusion/widgets/widget_card_sensor.dart';
 import 'package:datafusion/widgets/widget_merged_sensor.dart';
 import 'package:datafusion/widgets/widget_sensors_add_bar.dart';
-import 'package:datafusion/widgets/widget_virtual_object.dart';
+import 'package:datafusion/widgets/widget_card_virtual_object.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../main.dart';
 import '../services/service_simulation.dart';
 
 import '../res.dart';
@@ -28,10 +29,16 @@ class _HomePageState extends State<HomePage> {
         title: Text('تلفیق داده'),
         titleSpacing: 4.0,
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.play_arrow),
-              onPressed: () {
-                // TODO: Start Simulation
+          AnimatedBuilder(
+              animation: simulation,
+              builder: (context, _) {
+                return IconButton(
+                    icon: Icon(
+                        simulation.started ? Icons.pause : Icons.play_arrow),
+                    onPressed: () {
+                      // TODO: Start Simulation
+                      simulation.started = !simulation.started;
+                    });
               }),
           IconButton(
               icon: Icon(Icons.refresh),
@@ -43,33 +50,17 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         padding: EdgeInsets.only(top: 6),
         children: <Widget>[
-          VirtualObjectCard(
-            object2d: context.simulation.object,
-          ),
+          VirtualObjectCard(),
           Divider(),
           MergedSensorCard(),
           SizedBox(height: 2),
           SensorsAddBar(),
           Divider(height: 1),
-          AppCard(
-            icon: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 22.0,
-                horizontal: 11.0,
-              ),
-              child: SvgPicture.asset(Res.sensor),
-            ),
-            title: 'سنسور دو بعدی',
-            subtitle: Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Row(
-                children: <Widget>[
-                  SvgPicture.asset(Res.filter_off),
-                  Text('فیلتر کالمن'),
-                ],
-              ),
-            ),
-          )
+          Column(
+            children: simulation.sensors.map((sensor) {
+              return SensorCard(sensor: sensor);
+            }).toList(),
+          ),
         ],
       ),
     );

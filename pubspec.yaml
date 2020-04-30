@@ -17,10 +17,10 @@ dependencies:
   rxdart: ^0.24.0
   animations: ^1.0.0+5
   flutter_svg: ^0.17.4
-  fanoos_project: ^0.0.5
   shared_preferences: ^0.5.7
   after_layout: ^1.0.7+2
   shimmer: ^1.1.1
+  syncfusion_flutter_charts: ^18.1.46
 
 dev_dependencies:
   flutter_test:

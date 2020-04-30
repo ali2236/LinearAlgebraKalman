@@ -14,7 +14,7 @@ class MatrixCell extends StatelessWidget {
     return Container(
       color: gradient.colors.first,
       child: Center(
-        child: Text(value.toString(), style: TextStyle(color: Colors.black)),
+        child: Text(value.toStringAsFixed(2), style: TextStyle(color: Colors.black)),
       ),
     );
   }

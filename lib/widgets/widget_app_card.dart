@@ -6,6 +6,7 @@ class AppCard extends StatelessWidget {
   final String title;
   final Widget subtitle;
   final Widget corner;
+  final WidgetBuilder pagebuilder;
 
   const AppCard({
     Key key,
@@ -13,6 +14,7 @@ class AppCard extends StatelessWidget {
     @required this.title,
     @required this.subtitle,
     this.corner,
+    this.pagebuilder,
   }) : super(key: key);
 
   @override
@@ -22,15 +24,20 @@ class AppCard extends StatelessWidget {
       child: OpenContainer(
         closedElevation: 4.0,
         transitionDuration: Duration(milliseconds: 500),
-        closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        closedShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         closedBuilder: (context, action) {
           return Container(
             child: Row(
               children: <Widget>[
                 icon,
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(title),
+                    Hero(
+                      tag: title,
+                      child: Text(title),
+                    ),
                     subtitle,
                   ],
                 ),
@@ -43,9 +50,11 @@ class AppCard extends StatelessWidget {
             ),
           );
         },
-        openBuilder: (c, a) {
-          return Container();
-        },
+        openBuilder: pagebuilder == null
+            ? (c, a) {
+                return Container();
+              }
+            : (c, a) => pagebuilder(c),
       ),
     );
   }

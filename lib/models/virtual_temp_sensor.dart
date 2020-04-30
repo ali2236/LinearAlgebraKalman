@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:datafusion/kalman/kalman_stream_transformer.dart';
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:linalg/linalg.dart';
@@ -7,10 +8,31 @@ import 'package:linalg/linalg.dart';
 
 class VirtualTempSensor2D extends TempSensor {
 
-  final double errorRate;
-  final VirtualObject2D object;
 
-  VirtualTempSensor2D(this.errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D');
+  final VirtualObject2D object;
+  bool _kalman_filter = false;
+  Stream<Matrix> _ragular_stream;
+
+  @override
+  bool get kalmanFilter => _kalman_filter;
+
+  @override
+  set kalmanFilter(bool value) {
+    if(value==kalmanFilter) return;
+    if(value){
+      temps = temps.transform(KalmanStreamTransformer()).asBroadcastStream();
+    } else {
+      temps = _ragular_stream;
+    }
+    notifyListeners();
+  }
+
+  VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D', errorRate){
+    _ragular_stream = measureTemps();
+    temps = _ragular_stream.asBroadcastStream(onListen: (sub){
+      object.emit();
+    });
+  }
 
   @override
   Stream<Matrix> measureTemps() async*{
@@ -53,4 +75,5 @@ class VirtualTempSensor2D extends TempSensor {
     var delta = sign * amount;
     return delta;
   }
+
 }

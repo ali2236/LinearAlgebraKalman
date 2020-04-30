@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:datafusion/main.dart';
 import 'package:datafusion/pages/page_main.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,11 +13,10 @@ class _LoadingPageState extends State<LoadingPage>
     with AfterLayoutMixin<LoadingPage> {
   @override
   void afterFirstLayout(BuildContext context) async {
-    Future.delayed(Duration(seconds: 3)).then((_) {
+      await simulation.run();
+    Future.delayed(Duration(seconds: 0)).then((_) async{
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) {
-          return MainPage();
-        }),
+        MaterialPageRoute(builder: (c) => MainPage()),
       );
     });
   }

@@ -1,24 +1,16 @@
-import 'package:datafusion/models/virtual_object_2d.dart';
+import 'package:datafusion/pages/page_virtual_object.dart';
 import 'package:datafusion/res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../main.dart';
 import 'widget_app_card.dart';
 
-class VirtualObjectCard extends StatefulWidget {
+class VirtualObjectCard extends StatelessWidget {
 
-  final VirtualObject2D object2d;
-
-  const VirtualObjectCard({Key key,@required this.object2d}) : super(key: key);
-
-  @override
-  _VirtualObjectCardState createState() => _VirtualObjectCardState();
-}
-
-class _VirtualObjectCardState extends State<VirtualObjectCard> {
   @override
   Widget build(BuildContext context) {
-    var temps = widget.object2d.surfaceTemps;
+    var temps = simulation.object.surfaceTemps;
     var rows = temps.m;
     var columns = temps.n;
     return AppCard(
@@ -31,6 +23,7 @@ class _VirtualObjectCardState extends State<VirtualObjectCard> {
         alignment: AlignmentDirectional.centerStart,
         child: Text('${rows}x$columns'),
       ),
+      pagebuilder: (c) => VirtualObjectPage(),
     );
   }
 }

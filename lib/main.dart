@@ -1,28 +1,23 @@
-import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
 import 'package:datafusion/pages/page_loading.dart';
-import 'package:datafusion/pages/page_main.dart';
 import 'package:datafusion/services/service_simulation.dart';
 import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
-import 'package:fanoos_project/fanoos_project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
-var serviceContainer = ServiceContainer({
-  SimulationService(),
-});
+var simulation = SimulationService();
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Data Fusion',
+      title: 'Linear Algebra Kalman',
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: [Locale('fa')],
       locale: Locale('fa'),
@@ -49,10 +44,7 @@ class MyApp extends StatelessWidget {
           endIndent: 12,
         ),
       ),
-      home: Services(
-        container: serviceContainer,
-        child: LoadingPage(),
-      ),
+      home: LoadingPage(),
     );
   }
 }

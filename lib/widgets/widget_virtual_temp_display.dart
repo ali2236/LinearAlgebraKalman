@@ -12,6 +12,7 @@ class VirtualTempDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var accent = Theme.of(context).accentColor;
     return StreamBuilder<Matrix>(
         stream: temps,
         builder: (context, snapshot) {
@@ -26,6 +27,7 @@ class VirtualTempDisplay extends StatelessWidget {
                     begin: AlignmentDirectional.centerStart,
                     end: AlignmentDirectional.centerEnd,
                     colors: [
+                      accent,
                       Colors.indigo[500],
                       Colors.red[500],
                       Colors.white

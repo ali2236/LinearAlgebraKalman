@@ -1,4 +1,6 @@
-abstract class Sensor {
+import 'package:flutter/cupertino.dart';
+
+abstract class Sensor extends ChangeNotifier {
   bool enabled = true;
   final String name;
   final int id;
