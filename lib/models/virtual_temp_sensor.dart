@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:datafusion/application/accuracy_checker.dart';
 import 'package:datafusion/kalman/kalman_stream_transformer.dart';
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
@@ -12,6 +13,8 @@ class VirtualTempSensor2D extends TempSensor {
   final VirtualObject2D object;
   bool _kalman_filter = false;
   Stream<Matrix> _ragular_stream;
+  AccuracyStreamTransform accuracyCalculator;
+  double totalAccuracy = 0.0;
 
   @override
   bool get kalmanFilter => _kalman_filter;
@@ -29,6 +32,7 @@ class VirtualTempSensor2D extends TempSensor {
 
   VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D', errorRate){
     _ragular_stream = measureTemps();
+    accuracyCalculator = AccuracyStreamTransform(object);
     temps = _ragular_stream.asBroadcastStream(onListen: (sub){
       object.emit();
     });
@@ -43,7 +47,9 @@ class VirtualTempSensor2D extends TempSensor {
       var columns = source.n;
       var noised = _addConstantNoise(source, rows, columns, random);
       _addRandomNoise(noised, rows, columns, random);
+      updates++;
       yield noised;
+      calculateAccuracy(noised);
     }
   }
 
@@ -74,6 +80,14 @@ class VirtualTempSensor2D extends TempSensor {
     var amount = random.nextDouble() * errorRate;
     var delta = sign * amount;
     return delta;
+  }
+
+
+  void calculateAccuracy(Matrix output){
+    var _accuracy = accuracyCalculator.calculateAccuracy(output);
+    accuracy.value = _accuracy;
+    totalAccuracy += _accuracy;
+    avgAccuracy.value = totalAccuracy / updates;
   }
 
 }

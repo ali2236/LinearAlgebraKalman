@@ -21,6 +21,7 @@ dependencies:
   after_layout: ^1.0.7+2
   shimmer: ^1.1.1
   syncfusion_flutter_charts: ^18.1.46
+  start_chart: ^0.2.0
 
 dev_dependencies:
   flutter_test:

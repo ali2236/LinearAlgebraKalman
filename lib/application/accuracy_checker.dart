@@ -12,12 +12,13 @@ class AccuracyStreamTransform extends StreamTransformerBase<Matrix, double> {
   @override
   Stream<double> bind(Stream<Matrix> stream) async*{
     await for(var temp in stream){
-      var accuracy = _calculateAccuracy(object.surfaceTemps, temp);
+      var accuracy = calculateAccuracy(temp);
       yield accuracy;
     }
   }
 
-  double _calculateAccuracy(Matrix source, Matrix noised){
+  double calculateAccuracy(Matrix noised){
+    var source = object.surfaceTemps;
     var rows = source.m;
     var columns = source.n;
     var min = object.minTemp;

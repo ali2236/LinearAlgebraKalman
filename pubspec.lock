@@ -271,6 +271,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
+  start_chart:
+    dependency: "direct main"
+    description:
+      name: start_chart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   stream_channel:
     dependency: transitive
     description:

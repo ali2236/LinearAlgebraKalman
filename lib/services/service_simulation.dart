@@ -55,7 +55,7 @@ class SimulationService extends ChangeNotifier {
       _object = VirtualObject2D.generate(columns, rows, minTemp, maxTemp);
 
       sensors = List.generate(1, (i) {
-        return VirtualTempSensor2D(20, object);
+        return VirtualTempSensor2D(30, object);
       });
 
       notifyListeners();
