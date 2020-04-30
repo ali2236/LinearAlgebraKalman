@@ -14,6 +14,8 @@ class VirtualObject2D {
   StreamController<Matrix> _controller = StreamController.broadcast();
 
   factory VirtualObject2D.generate(int width, int height, double minTemp, double maxTemp){
+    // TODO: Fix generation algorithm
+
     var arr2d = noise2(width, height,
         seed: DateTime.now().millisecondsSinceEpoch,
         noiseType: NoiseType.Perlin,

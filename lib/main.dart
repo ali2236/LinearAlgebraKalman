@@ -2,11 +2,20 @@ import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
+import 'package:datafusion/pages/page_loading.dart';
+import 'package:datafusion/pages/page_main.dart';
+import 'package:datafusion/services/service_simulation.dart';
 import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
+import 'package:fanoos_project/fanoos_project.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
+
+var serviceContainer = ServiceContainer({
+  SimulationService(),
+});
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,10 +23,36 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Data Fusion',
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: [Locale('fa')],
+      locale: Locale('fa'),
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        brightness: Brightness.light,
+        primaryColor: Color(0xff07D1BD),
+        accentColor: Color(0xff07D1BD),
+        fontFamily: 'Vazir',
+        appBarTheme: AppBarTheme(
+          brightness: Brightness.dark,
+          iconTheme: IconThemeData(color: Colors.white),
+          textTheme: TextTheme(
+            title: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Vazir',
+                fontSize: 21,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
+        dividerTheme: DividerThemeData(
+          thickness: 0.5,
+          color: Colors.grey[900],
+          indent: 12,
+          endIndent: 12,
+        ),
       ),
-      home: MyHomePage(title: 'Data Fusion'),
+      home: Services(
+        container: serviceContainer,
+        child: LoadingPage(),
+      ),
     );
   }
 }
@@ -80,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               RaisedButton(
                 child: Text('turn All Kalman Filters On'),
                 onPressed: () {
-                  _keys.forEach((key){
+                  _keys.forEach((key) {
                     key.currentState.turnKalmanFilterOn();
                   });
                   _merger_key.currentState.turnKalmanFilterOn();
