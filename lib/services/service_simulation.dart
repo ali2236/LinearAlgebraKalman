@@ -16,7 +16,6 @@ class SimulationService extends ChangeNotifier {
   var emitRate = 100;
   var _started = false;
 
-
   VirtualObject2D get object => _object;
   double get minTemp => _sharedPreferences.getDouble('min_temp') ?? 273.0;
   double get maxTemp => _sharedPreferences.getDouble('max_temp') ?? 400.0;
@@ -49,7 +48,7 @@ class SimulationService extends ChangeNotifier {
 
   @override
   Future<void> run() async {
-      _sharedPreferences = await SharedPreferences.getInstance();
+      _sharedPreferences ??= await SharedPreferences.getInstance();
 
     try {
       _object = VirtualObject2D.generate(columns, rows, minTemp, maxTemp);
@@ -60,6 +59,7 @@ class SimulationService extends ChangeNotifier {
 
       notifyListeners();
     } catch (e){
+      print(e);
       await _sharedPreferences.clear();
       return run();
     }

@@ -13,8 +13,8 @@ class _LoadingPageState extends State<LoadingPage>
     with AfterLayoutMixin<LoadingPage> {
   @override
   void afterFirstLayout(BuildContext context) async {
-      await simulation.run();
-    Future.delayed(Duration(seconds: 0)).then((_) async{
+    await simulation.run();
+    Future.delayed(Duration(seconds: 2)).then((_) async {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (c) => MainPage()),
       );
@@ -24,6 +24,7 @@ class _LoadingPageState extends State<LoadingPage>
   @override
   Widget build(BuildContext context) {
     var accent = Theme.of(context).accentColor;
+    var style = TextStyle(fontWeight: FontWeight.bold, fontSize: 40);
     return Scaffold(
       body: Center(
         child: Shimmer.fromColors(

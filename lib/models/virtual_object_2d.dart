@@ -21,14 +21,16 @@ class VirtualObject2D {
 
   factory VirtualObject2D.generate(
       int width, int height, double minTemp, double maxTemp) {
-
-    var arr2d = noise2(width + 1, height + 1,
-        seed: DateTime.now().millisecondsSinceEpoch,
-        noiseType: NoiseType.Perlin,
-        octaves: 5,
-        gain: 0.002,
-        frequency: 0.07,
-        cellularReturnType: CellularReturnType.Distance2Add);
+    var arr2d = noise2(
+      width + 1,
+      height + 1,
+      seed: DateTime.now().millisecondsSinceEpoch,
+      noiseType: NoiseType.Perlin,
+      octaves: 5,
+      gain: 0.002,
+      frequency: 0.07,
+      cellularReturnType: CellularReturnType.Distance2Add,
+    );
 
     var temps = Matrix(arr2d
         .skip(1)
@@ -41,7 +43,9 @@ class VirtualObject2D {
     return VirtualObject2D(minTemp, maxTemp, temps);
   }
 
-  void emit() => _controller.sink.add(surfaceTemps);
+  void emit() {
+    _controller.sink.add(surfaceTemps);
+  }
 
   var _emit = true;
 
@@ -58,7 +62,9 @@ class VirtualObject2D {
   Future<void> asyncEmit() async {
     emit();
     await Future.delayed(
-      Duration(milliseconds: simulation.emitRate),
+      Duration(
+        milliseconds: simulation.emitRate,
+      ),
     );
   }
 }

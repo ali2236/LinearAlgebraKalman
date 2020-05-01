@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:datafusion/application/accuracy_checker.dart';
@@ -21,7 +22,8 @@ class VirtualTempSensor2D extends TempSensor {
 
   @override
   set kalmanFilter(bool value) {
-    if(value==kalmanFilter) return;
+    if(value==_kalman_filter) return;
+    _kalman_filter = value;
     if(value){
       temps = temps.transform(KalmanStreamTransformer()).asBroadcastStream();
     } else {
@@ -31,10 +33,26 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
   VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D', errorRate){
-    _ragular_stream = measureTemps();
-    accuracyCalculator = AccuracyStreamTransform(object);
-    temps = _ragular_stream.asBroadcastStream(onListen: (sub){
+    _ragular_stream = measureTemps().asBroadcastStream(onListen: (sub){
       object.emit();
+    });
+    accuracyCalculator = AccuracyStreamTransform(object);
+    temps = _ragular_stream;
+    _startAccuracyCheck();
+  }
+
+  void _startAccuracyCheck(){
+    addListener(_checkAccuracy);
+    _checkAccuracy();
+  }
+
+  StreamSubscription _subscription;
+  void _checkAccuracy(){
+    if(_subscription!=null){
+      _subscription.cancel();
+    }
+    _subscription = temps.listen((data){
+      _calculateAccuracy(data);
     });
   }
 
@@ -47,9 +65,7 @@ class VirtualTempSensor2D extends TempSensor {
       var columns = source.n;
       var noised = _addConstantNoise(source, rows, columns, random);
       _addRandomNoise(noised, rows, columns, random);
-      updates++;
       yield noised;
-      calculateAccuracy(noised);
     }
   }
 
@@ -83,11 +99,11 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
 
-  void calculateAccuracy(Matrix output){
+  void _calculateAccuracy(Matrix output){
     var _accuracy = accuracyCalculator.calculateAccuracy(output);
     accuracy.value = _accuracy;
     totalAccuracy += _accuracy;
-    avgAccuracy.value = totalAccuracy / updates;
+    avgAccuracy.value = totalAccuracy / ++updates;
   }
 
 }

@@ -44,7 +44,11 @@ class _TempSensorPageState extends State<TempSensorPage> {
                   subtitle: Text('افزایش دقت با تلفیق داده'),
                   trailing: Switch(
                     value: widget.sensor.kalmanFilter,
-                    onChanged: (value) => widget.sensor.kalmanFilter = value,
+                    onChanged: (value) {
+                      setState(() {
+                        widget.sensor.kalmanFilter = value;
+                      });
+                    },
                   ),
                 ),
                 ListTile(

@@ -7,10 +7,15 @@ import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-void main() => runApp(MyApp());
+import 'package:syncfusion_flutter_core/core.dart';
 
 var simulation = SimulationService();
+
+void main() {
+  SyncfusionLicense.registerLicense('NT8mJyc2IWhia31ifWN9Z2FoZnxgYnxhY2Fjc2FpYWNpZmRzAx5oMj86fTQ7YWFgZRM0PjI6P30wPD4=');
+  runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

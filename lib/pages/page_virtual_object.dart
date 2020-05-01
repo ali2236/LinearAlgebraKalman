@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
+import 'package:linalg/linalg.dart';
 import '../main.dart';
 
 class VirtualObjectPage extends StatefulWidget {
@@ -34,7 +37,9 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                 SizedBox(
                   height: 250,
                   child: VirtualTempDisplay(
+                    key: UniqueKey(),
                     temps: simulation.object.temps,
+                    temp: simulation.object.surfaceTemps,
                     min: simulation.object.minTemp,
                     max: simulation.object.maxTemp,
                   ),
