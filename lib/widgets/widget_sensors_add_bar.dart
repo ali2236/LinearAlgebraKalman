@@ -1,3 +1,4 @@
+import 'package:datafusion/widgets/widget_dialog_add_sensor.dart';
 import 'package:flutter/material.dart';
 
 class SensorsAddBar extends StatelessWidget {
@@ -19,13 +20,23 @@ class SensorsAddBar extends StatelessWidget {
           ),
           Align(
             alignment: AlignmentDirectional.centerEnd,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                // TODO: Add new sensor
-                Text('سنسور جدید'),
-                Icon(Icons.add),
-              ],
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (c) => AddSensorDialog(),
+                );
+              },
+              child: SizedBox(
+                width: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text('سنسور جدید'),
+                    Icon(Icons.add),
+                  ],
+                ),
+              ),
             ),
           )
         ],

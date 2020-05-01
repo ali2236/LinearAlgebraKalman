@@ -28,6 +28,14 @@ class _TempSensorPageState extends State<TempSensorPage> {
                 child: Text('جسم مجازی'),
               ),
               titleSpacing: 4.0,
+              actions: <Widget>[
+                IconButton(icon: Icon(Icons.delete), onPressed: (){
+                  Future.delayed(Duration(milliseconds: 600)).then((_){
+                    simulation.removeSensor2D(widget.sensor);
+                  });
+                  Navigator.of(context).pop();
+                }),
+              ],
             ),
             body: ListView(
               children: <Widget>[

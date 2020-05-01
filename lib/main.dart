@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 
-var simulation = SimulationService();
+SimulationService simulation;
 
 void main() {
   SyncfusionLicense.registerLicense('NT8mJyc2IWhia31ifWN9Z2FoZnxgYnxhY2Fjc2FpYWNpZmRzAx5oMj86fTQ7YWFgZRM0PjI6P30wPD4=');

@@ -64,4 +64,14 @@ class SimulationService extends ChangeNotifier {
       return run();
     }
   }
+
+  void addSensor2D(double errorRate){
+    sensors.add(VirtualTempSensor2D(errorRate, object));
+    notifyListeners();
+  }
+
+  void removeSensor2D(VirtualTempSensor2D sensor) {
+    sensors.remove(sensor);
+    notifyListeners();
+  }
 }
