@@ -13,7 +13,7 @@ class VirtualTempSensor2D extends TempSensor {
 
   final VirtualObject2D object;
   bool _kalman_filter = false;
-  Stream<Matrix> _ragular_stream;
+  Stream<Matrix> ragular_stream;
   AccuracyStreamTransform accuracyCalculator;
   double totalAccuracy = 0.0;
 
@@ -27,17 +27,17 @@ class VirtualTempSensor2D extends TempSensor {
     if(value){
       temps = temps.transform(KalmanStreamTransformer()).asBroadcastStream();
     } else {
-      temps = _ragular_stream;
+      temps = ragular_stream;
     }
     notifyListeners();
   }
 
-  VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'Virtual Sensor 2D', errorRate){
-    _ragular_stream = measureTemps().asBroadcastStream(onListen: (sub){
+  VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'سنسور دو بعدی', errorRate){
+    ragular_stream = measureTemps().asBroadcastStream(onListen: (sub){
       object.emit();
     });
     accuracyCalculator = AccuracyStreamTransform(object);
-    temps = _ragular_stream;
+    temps = ragular_stream;
     _startAccuracyCheck();
   }
 

@@ -6,11 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../res.dart';
 
-class SensorCard extends StatelessWidget {
+class SensorCard extends StatefulWidget {
   final TempSensor sensor;
 
   const SensorCard({Key key, this.sensor}) : super(key: key);
 
+  @override
+  _SensorCardState createState() => _SensorCardState();
+}
+
+class _SensorCardState extends State<SensorCard> {
   @override
   Widget build(BuildContext context) {
     return AppCard(
@@ -21,15 +26,30 @@ class SensorCard extends StatelessWidget {
         ),
         child: SvgPicture.asset(Res.sensor),
       ),
-      title: ' سنسور دو بعدی ' + '(${sensor.id})',
-      subtitle: Row(
-        // TODO: toggle filter
-        children: <Widget>[
-          SvgPicture.asset(Res.filter_off),
-          Text('فیلتر کالمن'),
-        ],
+      title: Text(widget.sensor.name),
+      subtitle: GestureDetector(
+        onTap: (){
+          setState(() {
+            widget.sensor.kalmanFilter = !widget.sensor.kalmanFilter;
+          });
+        },
+        child: Row(
+          children: <Widget>[
+            SvgPicture.asset(widget.sensor.kalmanFilter ? Res.filter_on : Res.filter_off),
+            SizedBox(width: 4.0),
+            Text('فیلتر کالمن'),
+          ],
+        ),
       ),
-      pagebuilder: (c) => TempSensorPage(sensor: sensor),
+      corner: AnimatedBuilder(
+          animation: widget.sensor.avgAccuracy,
+          builder: (context, _) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+              child: Text((widget.sensor.avgAccuracy.value * 100).toStringAsPrecision(5)),
+            );
+          }),
+      pageBuilder: (c) => TempSensorPage(sensor: widget.sensor),
     );
   }
 }

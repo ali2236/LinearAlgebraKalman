@@ -1,7 +1,7 @@
 import 'package:datafusion/pages/page_loading.dart';
 import 'package:datafusion/widgets/widget_card_sensor.dart';
 import 'package:datafusion/widgets/widget_icon_drawer.dart';
-import 'package:datafusion/widgets/widget_merged_sensor.dart';
+import 'package:datafusion/widgets/widget_card_merged_sensor.dart';
 import 'package:datafusion/widgets/widget_sensors_add_bar.dart';
 import 'package:datafusion/widgets/widget_card_virtual_object.dart';
 import 'package:flutter/cupertino.dart';

@@ -8,14 +8,14 @@ class VirtualMergedTempSensor2D extends VirtualTempSensor2D{
 
   final List<VirtualTempSensor2D> sensors;
 
-  VirtualMergedTempSensor2D(this.sensors) : super(double.nan, sensors?.first?.object, '${sensors.length} MergedSensors');
+  VirtualMergedTempSensor2D(this.sensors) : super(double.nan, sensors?.first?.object, 'سنسور ادغام'){
+
+  }
 
 
   @override
   Stream<Matrix> measureTemps(){
-    var streams = sensors.map((sensor) => sensor.measureTemps().transform(KalmanStreamTransformer()).asBroadcastStream());
-    var mergedStream = Rx.merge(streams);
-    return mergedStream;
+    return Rx.merge(sensors.map((s) => s.measureTemps()));
   }
 
 }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class AppCard extends StatelessWidget {
   final Widget icon;
-  final String title;
+  final Widget title;
   final Widget subtitle;
   final Widget corner;
-  final WidgetBuilder pagebuilder;
+  final WidgetBuilder pageBuilder;
 
   const AppCard({
     Key key,
@@ -14,7 +14,7 @@ class AppCard extends StatelessWidget {
     @required this.title,
     @required this.subtitle,
     this.corner,
-    this.pagebuilder,
+    this.pageBuilder,
   }) : super(key: key);
 
   @override
@@ -34,27 +34,35 @@ class AppCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Hero(
-                      tag: title,
-                      child: Text(title),
+                    title,
+                    SizedBox(height: 4.0),
+                    DefaultTextStyle(
+                      style: Theme.of(context).textTheme.caption,
+                      child: subtitle,
                     ),
-                    subtitle,
                   ],
                 ),
-                Column(
-                  children: <Widget>[
-                    corner ?? Container(),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 48,
+                      ),
+                      corner ?? Container(),
+                    ],
+                  ),
                 ),
               ],
             ),
           );
         },
-        openBuilder: pagebuilder == null
+        openBuilder: pageBuilder == null
             ? (c, a) {
                 return Container();
               }
-            : (c, a) => pagebuilder(c),
+            : (c, a) => pageBuilder(c),
       ),
     );
   }

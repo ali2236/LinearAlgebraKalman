@@ -18,12 +18,12 @@ class VirtualObjectCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: SvgPicture.asset(Res.cube),
       ),
-      title: 'جسم مجازی',
+      title: Text('جسم مجازی'),
       subtitle: Align(
         alignment: AlignmentDirectional.centerStart,
         child: Text('${rows}x$columns'),
       ),
-      pagebuilder: (c) => VirtualObjectPage(),
+      pageBuilder: (c) => VirtualObjectPage(),
     );
   }
 }

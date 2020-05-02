@@ -1,3 +1,4 @@
+import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
 import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
@@ -9,10 +10,8 @@ class SimulationService extends ChangeNotifier {
   VirtualObject2D _object;
 
   List<VirtualTempSensor2D> sensors;
+  VirtualMergedTempSensor2D mergedTempSensor;
 
-  List<GlobalKey<TempSensorDisplay2DState>> _keys;
-
-  var mergerKey = GlobalKey<TempSensorDisplay2DState>();
   var emitRate = 100;
   var _started = false;
 
@@ -57,6 +56,8 @@ class SimulationService extends ChangeNotifier {
         return VirtualTempSensor2D(30, object);
       });
 
+      mergedTempSensor = VirtualMergedTempSensor2D(sensors);
+
       notifyListeners();
     } catch (e){
       print(e);
@@ -67,11 +68,13 @@ class SimulationService extends ChangeNotifier {
 
   void addSensor2D(double errorRate){
     sensors.add(VirtualTempSensor2D(errorRate, object));
+    mergedTempSensor.notifyListeners();
     notifyListeners();
   }
 
   void removeSensor2D(VirtualTempSensor2D sensor) {
     sensors.remove(sensor);
+    mergedTempSensor.notifyListeners();
     notifyListeners();
   }
 }

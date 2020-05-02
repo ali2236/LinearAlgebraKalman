@@ -19,7 +19,6 @@ class _AboutPageState extends State<AboutPage> {
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         children: <Widget>[
           SizedBox(height: 8.0),
-          Text('این برنامه پروژه درس جبرخطی من است.'),
           Text('موضوع پروژه: ' + 'کاربرد جبر خطی در نرم افزار اندرویدی که دمای n نقطه را با استفاده از دیتا فیوژن به دست آورد.'),
           Text('استاد: ' + 'دکتر وحید میگلی'),
           Text('حل تمرین: ' + 'غلامرضا قاسمی'),
