@@ -7,22 +7,29 @@ import 'package:linalg/linalg.dart';
 class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
   List<List<DiscreteKalmanFilter>> _filters;
   Stopwatch _stopwatch = Stopwatch();
+  bool working;
+
+  KalmanStreamTransformer([this.working = false]);
 
   @override
   Stream<Matrix> bind(Stream<Matrix> stream) async* {
     await for (var matrix in stream) {
       _stopwatch.stop();
-      try {
-        if (_filters == null) {
-          constructFilters(matrix);
-          yield matrix;
-        } else {
-          updateFilters(matrix);
-          var state = getState(matrix.m, matrix.n);
-          yield state;
+      if(working) {
+        try {
+          if (_filters == null) {
+            constructFilters(matrix);
+            yield matrix;
+          } else {
+            updateFilters(matrix);
+            var state = getState(matrix.m, matrix.n);
+            yield state;
+          }
+        } catch (e) {
+          print(e.toString());
         }
-      } catch (e) {
-        print(e.toString());
+      } else {
+        yield matrix;
       }
       _stopwatch.reset();
       _stopwatch.start();

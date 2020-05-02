@@ -21,36 +21,43 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child: Container(
-                child: LAK(fontSize: 30,),
+        child: MediaQuery.removePadding(
+          removeTop: true,
+          context: context,
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.tealAccent[700],
+                ),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  child: LAK(
+                    fontSize: 30,
+                  ),
+                ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.tealAccent[700],
+              ListTile(
+                selected: selectedIndex == 0,
+                title: Text('صفحه اصلی'),
+                leading: Icon(Icons.home),
+                onTap: _goto(0),
               ),
-            ),
-            ListTile(
-              selected: selectedIndex == 0,
-              title: Text('صفحه اصلی'),
-              leading: Icon(Icons.home),
-              onTap: _goto(0),
-            ),
-            ListTile(
-              selected: selectedIndex == 1,
-              title: Text('درباره'),
-              leading: Icon(Icons.info),
-              onTap: _goto(1),
-            ),
-          ],
+              ListTile(
+                selected: selectedIndex == 1,
+                title: Text('درباره'),
+                leading: Icon(Icons.info),
+                onTap: _goto(1),
+              ),
+            ],
+          ),
         ),
       ),
       body: pages[selectedIndex],
     );
   }
 
-  VoidCallback _goto(int index){
+  VoidCallback _goto(int index) {
     return () {
       setState(() {
         selectedIndex = index;

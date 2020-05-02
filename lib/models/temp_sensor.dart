@@ -13,7 +13,4 @@ abstract class TempSensor extends Sensor {
 
   ValueNotifier<double> accuracy = ValueNotifier(1.0);
   ValueNotifier<double> avgAccuracy = ValueNotifier(1.0);
-
-
-  Stream<Matrix> measureTemps();
 }

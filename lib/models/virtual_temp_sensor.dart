@@ -12,32 +12,25 @@ class VirtualTempSensor2D extends TempSensor {
 
 
   final VirtualObject2D object;
-  bool _kalman_filter = false;
-  Stream<Matrix> ragular_stream;
   AccuracyStreamTransform accuracyCalculator;
   double totalAccuracy = 0.0;
+  var filter = KalmanStreamTransformer(false);
 
   @override
-  bool get kalmanFilter => _kalman_filter;
+  bool get kalmanFilter => filter.working;
 
   @override
   set kalmanFilter(bool value) {
-    if(value==_kalman_filter) return;
-    _kalman_filter = value;
-    if(value){
-      temps = temps.transform(KalmanStreamTransformer()).asBroadcastStream();
-    } else {
-      temps = ragular_stream;
-    }
+    if(value==filter.working) return;
+    filter.working = value;
     notifyListeners();
   }
 
   VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'سنسور دو بعدی', errorRate){
-    ragular_stream = measureTemps().asBroadcastStream(onListen: (sub){
+    accuracyCalculator = AccuracyStreamTransform(object);
+    temps = measureTemps().transform(filter).asBroadcastStream(onListen: (sub){
       object.emit();
     });
-    accuracyCalculator = AccuracyStreamTransform(object);
-    temps = ragular_stream;
     _startAccuracyCheck();
   }
 
@@ -56,11 +49,10 @@ class VirtualTempSensor2D extends TempSensor {
     });
   }
 
-  @override
   Stream<Matrix> measureTemps() async*{
     var random = Random();
-    var temps = object.temps;
-    await for(var source in temps){
+    var objectTemps = object.temps;
+    await for(var source in objectTemps){
       var rows = source.m;
       var columns = source.n;
       var noised = _addConstantNoise(source, rows, columns, random);
