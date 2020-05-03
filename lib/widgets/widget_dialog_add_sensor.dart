@@ -19,7 +19,7 @@ class _AddSensorDialogState extends State<AddSensorDialog> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text('دقت سنسور'),
+              child: Text('میزان نویز'),
             ),
             Expanded(
               child: Padding(

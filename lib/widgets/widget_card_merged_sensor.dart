@@ -36,7 +36,7 @@ class _MergedSensorCardState extends State<MergedSensorCard> {
           Text(sensor.name),
           SizedBox(width: 4),
           Text(
-            '(' + '${sensor.sensors.length} ' + ' ورودی' + ')',
+            '(' + '${sensor.sensors.length}' + ' ورودی' + ')',
             style: Theme.of(context).textTheme.caption,
           ),
         ],
@@ -63,7 +63,7 @@ class _MergedSensorCardState extends State<MergedSensorCard> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
               child:
-                  Text((sensor.avgAccuracy.value * 100).toStringAsPrecision(5)),
+                  Text((sensor.avgAccuracy.value * 100).toStringAsPrecision(5) + '%'),
             );
           }),
       pageBuilder: (c) => MergedSensorPage(),

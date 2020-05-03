@@ -49,6 +49,8 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                   children: <Widget>[
                     RaisedButton(
                       child: Text('ریست کردن جسم'),
+                      color: Theme.of(context).accentColor,
+                      textColor: Colors.white,
                       onPressed: () async {
                         await simulation.run();
                         setState(() {});

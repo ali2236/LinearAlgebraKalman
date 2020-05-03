@@ -28,14 +28,15 @@ class _SensorCardState extends State<SensorCard> {
       ),
       title: Text(widget.sensor.name),
       subtitle: GestureDetector(
-        onTap: (){
+        onTap: () {
           setState(() {
             widget.sensor.kalmanFilter = !widget.sensor.kalmanFilter;
           });
         },
         child: Row(
           children: <Widget>[
-            SvgPicture.asset(widget.sensor.kalmanFilter ? Res.filter_on : Res.filter_off),
+            SvgPicture.asset(
+                widget.sensor.kalmanFilter ? Res.filter_on : Res.filter_off),
             SizedBox(width: 4.0),
             Text('فیلتر کالمن'),
           ],
@@ -45,8 +46,12 @@ class _SensorCardState extends State<SensorCard> {
           animation: widget.sensor.avgAccuracy,
           builder: (context, _) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-              child: Text((widget.sensor.avgAccuracy.value * 100).toStringAsPrecision(5)),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
+              child: Text(
+                (widget.sensor.avgAccuracy.value * 100).toStringAsPrecision(5) +
+                    '%',
+              ),
             );
           }),
       pageBuilder: (c) => TempSensorPage(sensor: widget.sensor),

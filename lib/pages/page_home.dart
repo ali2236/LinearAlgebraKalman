@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: simulation,
-      builder: (context, _){
+      builder: (context, _) {
         return Scaffold(
           appBar: AppBar(
             leading: DrawerIcon(context),
@@ -31,7 +30,8 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, _) {
                     return IconButton(
                         icon: Icon(
-                            simulation.started ? Icons.pause : Icons.play_arrow),
+                          simulation.started ? Icons.pause : Icons.play_arrow,
+                        ),
                         onPressed: () {
                           simulation.started = !simulation.started;
                         });

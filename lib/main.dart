@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
           endIndent: 12,
         ),
       ),
+      debugShowCheckedModeBanner: false,
       home: LoadingPage(),
     );
   }

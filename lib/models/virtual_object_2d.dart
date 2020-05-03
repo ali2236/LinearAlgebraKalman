@@ -50,6 +50,7 @@ class VirtualObject2D {
   var _emit = true;
 
   void startEmit() async {
+    _emit = true;
     while (_emit) {
       await asyncEmit();
     }
