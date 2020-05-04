@@ -8,7 +8,11 @@ class InformationPage extends StatefulWidget {
 
 class _InformationPageState extends State<InformationPage> {
   var infos = [
-    Info('فیلتر کالمن', 'متن'),
+    Info('فیلتر کالمن', 'TODO'),
+    Info('تلفیق داده', 'TODO'),
+    Info('جسم مجازی', 'TODO'),
+    Info('سنسور مجازی', 'TODO'),
+    Info('سنسور ادغام', 'TODO'),
   ];
 
   @override

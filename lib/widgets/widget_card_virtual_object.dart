@@ -1,5 +1,6 @@
 import 'package:datafusion/pages/page_virtual_object.dart';
 import 'package:datafusion/res.dart';
+import 'package:datafusion/widgets/widget_dot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -24,6 +25,8 @@ class VirtualObjectCard extends StatelessWidget {
         child: Text('${rows}x$columns'),
       ),
       pageBuilder: (c) => VirtualObjectPage(),
+      animated: false,
+      dot: Dot(Theme.of(context).accentColor),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/pages/page_temp_sensor.dart';
+import 'package:datafusion/widgets/widget_accuracy_dot.dart';
 import 'package:datafusion/widgets/widget_app_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,6 +43,7 @@ class _SensorCardState extends State<SensorCard> {
           ],
         ),
       ),
+      dot: AccuracyDot(accuracy: widget.sensor.avgAccuracy),
       corner: AnimatedBuilder(
           animation: widget.sensor.avgAccuracy,
           builder: (context, _) {

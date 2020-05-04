@@ -11,7 +11,7 @@ class VirtualObjectPage extends StatefulWidget {
 }
 
 class _VirtualObjectPageState extends State<VirtualObjectPage> {
-  var tempsList = List<DropdownMenuItem>.generate(1000, (i) {
+  var tempsList = List<DropdownMenuItem>.generate(500, (i) {
     var value = i + 1.0;
     return DropdownMenuItem<double>(
       value: value,
