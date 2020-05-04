@@ -21,7 +21,7 @@ class VirtualTempDisplay extends StatelessWidget {
           var data = snapshot?.data ?? temp;
           if(data==null){
             simulation.object.asyncEmit();
-            data = Matrix.eye(1);
+            data = Matrix.fill(1,1,double.nan);
           }
           return body(accent, data);
         }
@@ -41,9 +41,6 @@ class VirtualTempDisplay extends StatelessWidget {
               end: AlignmentDirectional.centerEnd,
               colors: [
                 accent,
-                Colors.indigo[500],
-                Colors.red[500],
-                Colors.white
               ],
             ),
           ),

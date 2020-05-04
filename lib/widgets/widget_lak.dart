@@ -16,6 +16,7 @@ class LAK extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: fontSize,
           color: Colors.white,
+          fontFamily: 'Nutino'
         ),
       ),
     );

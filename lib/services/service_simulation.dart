@@ -15,6 +15,8 @@ class SimulationService extends ChangeNotifier {
   var emitRate = 100;
   var _started = false;
 
+  ValueNotifier<bool> simulationFirstStart = ValueNotifier(false);
+
   VirtualObject2D get object => _object;
   double get minTemp => _sharedPreferences.getDouble('min_temp') ?? 273.0;
   double get maxTemp => _sharedPreferences.getDouble('max_temp') ?? 400.0;
@@ -52,11 +54,11 @@ class SimulationService extends ChangeNotifier {
     try {
       _object = VirtualObject2D.generate(columns, rows, minTemp, maxTemp);
 
-      sensors = List.generate(1, (i) {
+      sensors = [];/*List.generate(0, (i) {
         return VirtualTempSensor2D(30, object);
-      });
+      })*/
 
-      mergedTempSensor = VirtualMergedTempSensor2D(sensors);
+      mergedTempSensor = VirtualMergedTempSensor2D(sensors, object);
 
       notifyListeners();
     } catch (e){

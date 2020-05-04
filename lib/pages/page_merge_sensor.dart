@@ -1,5 +1,6 @@
 import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/widgets/widget_accuracy_chart.dart';
+import 'package:datafusion/widgets/widget_simulation_controll.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,9 @@ class _MergedSensorPageState extends State<MergedSensorPage> {
                 child: Text(sensor.name),
               ),
               titleSpacing: 4.0,
+              actions: <Widget>[
+                SimulationControllButton(),
+              ],
             ),
             body: ListView(
               children: <Widget>[

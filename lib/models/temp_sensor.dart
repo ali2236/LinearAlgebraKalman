@@ -1,6 +1,7 @@
 import 'package:datafusion/models/sensor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:linalg/linalg.dart';
+
+import 'updated_value.dart';
 
 abstract class TempSensor extends Sensor {
   TempSensor(String name, this.errorRate) : super(name);
@@ -11,6 +12,6 @@ abstract class TempSensor extends Sensor {
   int updates = 0;
   final double errorRate;
 
-  ValueNotifier<double> accuracy = ValueNotifier(1.0);
-  ValueNotifier<double> avgAccuracy = ValueNotifier(1.0);
+  UpdatedValue<double> accuracy = UpdatedValue(1.0);
+  UpdatedValue<double> avgAccuracy = UpdatedValue(1.0);
 }

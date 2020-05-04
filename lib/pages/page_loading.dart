@@ -3,6 +3,7 @@ import 'package:datafusion/main.dart';
 import 'package:datafusion/pages/page_main.dart';
 import 'package:datafusion/services/service_simulation.dart';
 import 'package:datafusion/widgets/widget_lak.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -17,7 +18,7 @@ class _LoadingPageState extends State<LoadingPage>
   void afterFirstLayout(BuildContext context) async {
     simulation = SimulationService();
     await simulation.run();
-    Future.delayed(Duration(seconds: 2)).then((_) async {
+    Future.delayed(Duration(seconds: kDebugMode ? 1 : 2)).then((_) async {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (c) => MainPage()),
       );

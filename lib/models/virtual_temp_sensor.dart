@@ -28,10 +28,14 @@ class VirtualTempSensor2D extends TempSensor {
 
   VirtualTempSensor2D(double errorRate, this.object, [String name]) : super(name ?? 'سنسور دو بعدی', errorRate){
     accuracyCalculator = AccuracyStreamTransform(object);
+    updateTempsStream();
+    _startAccuracyCheck();
+  }
+
+  void updateTempsStream(){
     temps = measureTemps().transform(filter).asBroadcastStream(onListen: (sub){
       object.emit();
     });
-    _startAccuracyCheck();
   }
 
   void _startAccuracyCheck(){
@@ -84,6 +88,7 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
   double _randomDelta(Random random){
+    if(errorRate==0.0) return 0.0;
     var sign = random.nextBool() ? 1 : -1;
     var amount = random.nextDouble() * errorRate;
     var delta = sign * amount;

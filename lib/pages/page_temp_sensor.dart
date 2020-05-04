@@ -1,5 +1,6 @@
 import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/widgets/widget_accuracy_chart.dart';
+import 'package:datafusion/widgets/widget_simulation_controll.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class _TempSensorPageState extends State<TempSensorPage> {
               ),
               titleSpacing: 4.0,
               actions: <Widget>[
+                SimulationControllButton(),
                 IconButton(icon: Icon(Icons.delete), onPressed: (){
                   Future.delayed(Duration(milliseconds: 600)).then((_){
                     simulation.removeSensor2D(widget.sensor);

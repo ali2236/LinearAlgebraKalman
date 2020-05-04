@@ -20,26 +20,33 @@ class SensorsAddBar extends StatelessWidget {
           ),
           Align(
             alignment: AlignmentDirectional.centerEnd,
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (c) => AddSensorDialog(),
-                );
-              },
-              child: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text('سنسور جدید'),
-                    Icon(Icons.add),
-                  ],
-                ),
-              ),
-            ),
+            child: AddSensorButton(),
           )
         ],
+      ),
+    );
+  }
+}
+
+class AddSensorButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (c) => AddSensorDialog(),
+        );
+      },
+      child: SizedBox(
+        width: 100,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text('سنسور جدید', style: TextStyle(fontSize: 13.0)),
+            Icon(Icons.add),
+          ],
+        ),
       ),
     );
   }

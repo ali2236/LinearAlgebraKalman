@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TempSensorDisplay2D(
             key: _merger_key,
-            sensor: VirtualMergedTempSensor2D(sensors),
+            sensor: VirtualMergedTempSensor2D(sensors, object),
           ),
           Column(
             children: List.generate(sensors.length, (i) {

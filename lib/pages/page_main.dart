@@ -21,47 +21,59 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: MediaQuery.removePadding(
-          removeTop: true,
-          context: context,
-          child: ListView(
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.tealAccent[700],
-                ),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: LAK(
-                    fontSize: 30,
+    return WillPopScope(
+      onWillPop: () async {
+        if (selectedIndex == 0) {
+          return true;
+        } else {
+          setState(() {
+            selectedIndex = 0;
+          });
+          return false;
+        }
+      },
+      child: Scaffold(
+        drawer: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: ListView(
+              children: <Widget>[
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                  ),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: LAK(
+                      fontSize: 30,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                selected: selectedIndex == 0,
-                title: Text('صفحه اصلی'),
-                leading: Icon(Icons.home),
-                onTap: _goto(0),
-              ),
-              ListTile(
-                selected: selectedIndex == 1,
-                title: Text('دانشنامه'),
-                leading: Icon(Icons.library_books),
-                onTap: _goto(1),
-              ),
-              ListTile(
-                selected: selectedIndex == 2,
-                title: Text('درباره'),
-                leading: Icon(Icons.info),
-                onTap: _goto(1),
-              ),
-            ],
+                ListTile(
+                  selected: selectedIndex == 0,
+                  title: Text('صفحه اصلی'),
+                  leading: Icon(Icons.home),
+                  onTap: _goto(0),
+                ),
+                ListTile(
+                  selected: selectedIndex == 1,
+                  title: Text('دانشنامه'),
+                  leading: Icon(Icons.library_books),
+                  onTap: _goto(1),
+                ),
+                ListTile(
+                  selected: selectedIndex == 2,
+                  title: Text('درباره'),
+                  leading: Icon(Icons.info),
+                  onTap: _goto(2),
+                ),
+              ],
+            ),
           ),
         ),
+        body: pages[selectedIndex],
       ),
-      body: pages[selectedIndex],
     );
   }
 
