@@ -17,7 +17,7 @@ class VirtualObjectCard extends StatelessWidget {
     return AppCard(
       icon: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SvgPicture.asset(Res.cube),
+        child: SvgPicture.asset(Res.cube, color: Colors.grey[800]),
       ),
       title: Text('جسم مجازی'),
       subtitle: Align(

@@ -1,8 +1,7 @@
-import 'dart:async';
-
+import 'package:datafusion/widgets/widget_form_input_double.dart';
 import 'package:datafusion/widgets/widget_virtual_temp_display.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:linalg/linalg.dart';
 import '../main.dart';
 
 class VirtualObjectPage extends StatefulWidget {
@@ -91,24 +90,6 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                   ),
                 ),
                 ListTile(
-                  title: Text('کمترین دمای یک نقطه'),
-                  subtitle: Text('برابر با ' + simulation.object.minTemp.toString() + ' برای جسم فعلی'),
-                  trailing: DropdownButton(
-                    value: simulation.minTemp,
-                    onChanged: (value) => simulation.minTemp = value,
-                    items: tempsList,
-                  ),
-                ),
-                ListTile(
-                  title: Text('بیشترین دمای یک نقطه'),
-                  subtitle: Text('برابر با ' + simulation.object.maxTemp.toString() + ' برای جسم فعلی'),
-                  trailing: DropdownButton(
-                    value: simulation.maxTemp,
-                    onChanged: (value) => simulation.maxTemp = value,
-                    items: tempsList,
-                  ),
-                ),
-                ListTile(
                   title: Text('سرعت بیرون دادن اطلاعات'),
                   subtitle: Text('داده ها از جسم به سنسورها push می شوند'),
                   trailing: DropdownButton(
@@ -119,12 +100,89 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                       });
                     },
                     items: List<DropdownMenuItem>.generate(50, (i) {
-                      var value = (i + 1)*20;
+                      var value = (i + 1) * 20;
                       return DropdownMenuItem<int>(
                         value: value,
                         child: Text(value.toString()),
                       );
                     }),
+                  ),
+                ),
+/*                Divider(endIndent: 0, indent: 0, thickness: 0.1),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    'تنظیمات دما',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                ),*/
+                Form(
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            children: <Widget>[
+                              Text('کمترین دمای یک نقطه'),
+                              SizedBox(width: 4),
+                              Text(
+                                '(' 'برابر با ' +
+                                    simulation.object.minTemp.toString() +
+                                    ' برای جسم فعلی' ')',
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ),
+                        isThreeLine: true,
+                        subtitle: DoubleFormInput(
+                          label: 'کمترین دما',
+                          initialValue: simulation.minTemp,
+                          onChange: (v) {
+                            simulation.minTemp = v;
+                          },
+                          validator: (v) {
+                            if (v > simulation.maxTemp)
+                              return 'کمترین دما نمی تواند از بیشترین دما بیشتر باشد';
+                            return null;
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            children: <Widget>[
+                              Text('بیشترین دمای یک نقطه'),
+                              SizedBox(width: 4),
+                              Text(
+                                '(' 'برابر با ' +
+                                    simulation.object.maxTemp.toString() +
+                                    ' برای جسم فعلی' ')',
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                            ],
+                          ),
+                        ),
+                        isThreeLine: true,
+                        subtitle: DoubleFormInput(
+                          label: 'بیشترین دما',
+                          initialValue: simulation.maxTemp,
+                          onChange: (v) {
+                            simulation.maxTemp = v;
+                          },
+                          validator: (v) {
+                            if (v < simulation.minTemp)
+                              return 'بشترین دما نمی تواند از کمترین دما کمتر باشد';
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,5 +1,7 @@
 import 'package:datafusion/pages/page_about.dart';
 import 'package:datafusion/pages/page_information.dart';
+import 'package:datafusion/pages/page_report.dart';
+import 'package:datafusion/pages/page_settings.dart';
 import 'package:datafusion/widgets/widget_lak.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +17,16 @@ class _MainPageState extends State<MainPage> {
 
   var pages = [
     HomePage(),
+    ReportPage(),
     InformationPage(),
+    SettingsPage(),
     AboutPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var i = 0;
+    var j = 0;
     return WillPopScope(
       onWillPop: () async {
         if (selectedIndex == 0) {
@@ -51,22 +57,34 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 ListTile(
-                  selected: selectedIndex == 0,
+                  selected: selectedIndex == i++,
                   title: Text('صفحه اصلی'),
                   leading: Icon(Icons.home),
-                  onTap: _goto(0),
+                  onTap: _goto(j++),
                 ),
                 ListTile(
-                  selected: selectedIndex == 1,
+                  selected: selectedIndex == i++,
+                  title: Text('گزارش نهایی'),
+                  leading: Icon(Icons.book),
+                  onTap: _goto(j++),
+                ),
+                ListTile(
+                  selected: selectedIndex == i++,
                   title: Text('دانشنامه'),
                   leading: Icon(Icons.library_books),
-                  onTap: _goto(1),
+                  onTap: _goto(j++),
                 ),
                 ListTile(
-                  selected: selectedIndex == 2,
+                  selected: selectedIndex == i++,
+                  title: Text('تنظیمات'),
+                  leading: Icon(Icons.settings),
+                  onTap: _goto(j++),
+                ),
+                ListTile(
+                  selected: selectedIndex == i++,
                   title: Text('درباره'),
                   leading: Icon(Icons.info),
-                  onTap: _goto(2),
+                  onTap: _goto(j++),
                 ),
               ],
             ),

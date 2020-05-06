@@ -7,16 +7,22 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
-  var infos = [
-    Info('فیلتر کالمن', 'TODO'),
-    Info('تلفیق داده', 'TODO'),
-    Info('جسم مجازی', 'TODO'),
-    Info('سنسور مجازی', 'TODO'),
-    Info('سنسور ادغام', 'TODO'),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    var infos = [
+      Info('فیلتر کالمن', (c) {
+        return ListView(
+          children: <Widget>[
+
+          ],
+        );
+      }),
+      Info('تلفیق داده', null),
+      Info('جسم مجازی', null),
+      Info('سنسور مجازی', null),
+      Info('سنسور ادغام', null),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         leading: DrawerIcon(context),
@@ -37,11 +43,7 @@ class _InformationPageState extends State<InformationPage> {
                       title: Text(info.title),
                       titleSpacing: 4.0,
                     ),
-                    body: ListView(
-                      children: <Widget>[
-                        Text(info.pdfPath),
-                      ],
-                    ),
+                    body: info.builder(context),
                   ),
                 ),
               );
@@ -55,7 +57,7 @@ class _InformationPageState extends State<InformationPage> {
 
 class Info {
   final String title;
-  final String pdfPath;
+  final WidgetBuilder builder;
 
-  Info(this.title, this.pdfPath);
+  Info(this.title, this.builder);
 }

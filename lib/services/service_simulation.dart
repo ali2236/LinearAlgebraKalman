@@ -1,7 +1,6 @@
 import 'package:datafusion/models/virtual_merge_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:datafusion/models/virtual_temp_sensor.dart';
-import 'package:datafusion/widgets/widget_temps_sensor_display.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +13,7 @@ class SimulationService extends ChangeNotifier {
 
   var emitRate = 100;
   var _started = false;
+  var _kalmanVariance = 100.0;
 
   ValueNotifier<bool> simulationFirstStart = ValueNotifier(false);
 
@@ -23,11 +23,17 @@ class SimulationService extends ChangeNotifier {
   int get rows => _sharedPreferences.getInt('rows') ?? 5;
   int get columns =>  _sharedPreferences.getInt('columns') ?? 5;
   bool get started => _started;
+  double get kalmanVariance => _kalmanVariance;
 
   set minTemp (value) => _set('min_temp', value);
   set maxTemp (value) => _set('max_temp', value);
   set rows (value) => _set('rows', value);
   set columns (value) => _set('columns', value);
+  set kalmanVariance (value) {
+    _kalmanVariance = value;
+    _sharedPreferences.setDouble('kaman_variance', value);
+    notifyListeners();
+  }
   set started (bool value) {
     _started = value;
     if(value){
@@ -52,11 +58,12 @@ class SimulationService extends ChangeNotifier {
       _sharedPreferences ??= await SharedPreferences.getInstance();
 
     try {
+
+      _kalmanVariance = _sharedPreferences.getDouble('kaman_variance') ?? _kalmanVariance;
+
       _object = VirtualObject2D.generate(columns, rows, minTemp, maxTemp);
 
-      sensors = [];/*List.generate(0, (i) {
-        return VirtualTempSensor2D(30, object);
-      })*/
+      sensors = [];
 
       mergedTempSensor = VirtualMergedTempSensor2D(sensors, object);
 

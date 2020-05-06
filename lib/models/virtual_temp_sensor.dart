@@ -7,9 +7,7 @@ import 'package:datafusion/models/temp_sensor.dart';
 import 'package:datafusion/models/virtual_object_2d.dart';
 import 'package:linalg/linalg.dart';
 
-
 class VirtualTempSensor2D extends TempSensor {
-
 
   final VirtualObject2D object;
   AccuracyStreamTransform accuracyCalculator;

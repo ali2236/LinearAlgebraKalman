@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:datafusion/kalman/kalman_filter.dart';
+import 'package:datafusion/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:linalg/linalg.dart';
 
@@ -15,7 +16,7 @@ class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
   Stream<Matrix> bind(Stream<Matrix> stream) async* {
     await for (var matrix in stream) {
       _stopwatch.stop();
-      if(working) {
+      if (working) {
         try {
           if (_filters == null) {
             constructFilters(matrix);
@@ -75,7 +76,9 @@ class KalmanStreamTransformer extends StreamTransformerBase<Matrix, Matrix> {
             ],
           ),
           Matrix.eye(2),
-          Matrix.eye(2).map((d) => d * 1000),
+          Matrix.eye(2).map(
+            (d) => d * simulation.kalmanVariance,
+          ),
         );
       }
     }

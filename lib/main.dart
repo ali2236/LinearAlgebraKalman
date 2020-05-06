@@ -48,6 +48,13 @@ class MyApp extends StatelessWidget {
           indent: 12,
           endIndent: 12,
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 4.0,
+            horizontal: 12.0,
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: LoadingPage(),

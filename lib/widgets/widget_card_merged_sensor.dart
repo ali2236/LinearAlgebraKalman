@@ -30,7 +30,7 @@ class _MergedSensorCardState extends State<MergedSensorCard> {
           vertical: 16.0,
           horizontal: 24.0,
         ),
-        child: SvgPicture.asset(Res.merge),
+        child: SvgPicture.asset(Res.merge, color: Colors.grey[800]),
       ),
       title: Row(
         children: <Widget>[

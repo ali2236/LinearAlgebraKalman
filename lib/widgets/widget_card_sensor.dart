@@ -25,7 +25,7 @@ class _SensorCardState extends State<SensorCard> {
           vertical: 22.0,
           horizontal: 11.0,
         ),
-        child: SvgPicture.asset(Res.sensor),
+        child: SvgPicture.asset(Res.sensor, color: Colors.grey[800]),
       ),
       title: Text(widget.sensor.name),
       subtitle: GestureDetector(
