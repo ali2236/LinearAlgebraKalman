@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Row(
                         children: <Widget>[
-                          Text('واریانس فیلتر کالمن'),
+                          Text('کواریانس فیلتر کالمن'),
                           SizedBox(width: 4),
                           Text(
                             '('
@@ -44,12 +44,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     isThreeLine: true,
                     subtitle: DoubleFormInput(
-                      label: 'واریانس',
+                      label: 'کواریانس',
                       initialValue: simulation.kalmanVariance,
                       onChange: (v) => simulation.kalmanVariance = v,
                       validator: (v) {
-                        if (v < 0) return 'واریانس نباید منفی باشد';
-                        if (v == 0) return 'واریانس نباید 0 باشد';
+                        if (v < 0) return 'کواریانس نباید منفی باشد';
+                        if (v == 0) return 'کواریانس نباید 0 باشد';
                         return null;
                       },
                     ),
@@ -70,7 +70,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       Expanded(
                         child: Text(
-                          'واریانس انتخاب شده باید متناسب با مقدار نویز سنسور باشد. اگر سنسورهای شما نویز کم دارند، مقدار کمی انتخاب کنید و اگر سنسورها، نویز زیادی دارند، مقدار بالایی انتخاب کنید ولی در هر صورت حتی اگر مقدار مناسبی انتخاب نکردید، الگوریتم کالمن فیلتر به اندازه‌ای هوشمند است که با هر مقداری کار کند.',
+                          'کواریانس انتخاب شده باید متناسب با مقدار نویز سنسور باشد. اگر سنسورهای شما نویز کم دارند، مقدار کمی انتخاب کنید و اگر سنسورها، نویز زیادی دارند، مقدار بالایی انتخاب کنید ولی در هر صورت حتی اگر مقدار مناسبی انتخاب نکردید، الگوریتم کالمن فیلتر به اندازه‌ای هوشمند است که با هر مقداری کار کند.',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ),

@@ -177,7 +177,7 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                           },
                           validator: (v) {
                             if (v < simulation.minTemp)
-                              return 'بشترین دما نمی تواند از کمترین دما کمتر باشد';
+                              return 'بیشترین دما نمی تواند از کمترین دما کمتر باشد';
                             return null;
                           },
                         ),

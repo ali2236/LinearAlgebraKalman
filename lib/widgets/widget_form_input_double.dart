@@ -39,6 +39,7 @@ class _DoubleFormInputState extends State<DoubleFormInput> {
 
     return SizedBox(
       child: TextFormField(
+        cursorColor: Theme.of(context).accentColor,
         textDirection: TextDirection.ltr,
         initialValue: value.toString(),
         decoration: widget.label!=null ? InputDecoration(
