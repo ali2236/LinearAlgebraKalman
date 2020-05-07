@@ -19,45 +19,40 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: simulation,
-      builder: (context, _) {
-        return Scaffold(
-          appBar: AppBar(
-            leading: DrawerIcon(context),
-            title: Text('تلفیق داده'),
-            titleSpacing: 4.0,
-            actions: <Widget>[
-              SimulationControllButton(),
-              IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (c) => LoadingPage(),
-                    ));
-                  }),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        leading: DrawerIcon(context),
+        title: Text('تلفیق داده'),
+        titleSpacing: 4.0,
+        actions: <Widget>[
+          SimulationControllButton(),
+          IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (c) => LoadingPage(),
+                ));
+              }),
+        ],
+      ),
+      body: ListView(
+        padding: EdgeInsets.only(top: 6),
+        children: <Widget>[
+          StartSimulationAlert(),
+          VirtualObjectCard(),
+          Divider(),
+          MergedSensorCard(),
+          SizedBox(height: 2),
+          SensorsAddBar(),
+          Divider(height: 1),
+          AddSensorAlert(),
+          Column(
+            children: simulation.sensors.map((sensor) {
+              return SensorCard(sensor: sensor);
+            }).toList(),
           ),
-          body: ListView(
-            padding: EdgeInsets.only(top: 6),
-            children: <Widget>[
-              StartSimulationAlert(),
-              VirtualObjectCard(),
-              Divider(),
-              MergedSensorCard(),
-              SizedBox(height: 2),
-              SensorsAddBar(),
-              Divider(height: 1),
-              AddSensorAlert(),
-              Column(
-                children: simulation.sensors.map((sensor) {
-                  return SensorCard(sensor: sensor);
-                }).toList(),
-              ),
-            ],
-          ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

@@ -23,7 +23,10 @@ dependencies:
   syncfusion_flutter_charts: ^18.1.46
   syncfusion_flutter_core: ^18.1.46
   get_version: ^0.2.2
-  native_pdf_view: ^3.1.0
+  native_pdf_view: ^3.2.0-dev.1
+  open_file: ^3.0.1
+  path_provider: ^1.6.7
+  flutter_markdown: ^0.3.5
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +52,17 @@ flutter:
     - assets/icons/filter_on.svg
     - assets/icons/merge.svg
     - assets/icons/sensor.svg
+    - assets/images/data_fusion_img.png
+    - assets/images/kalman_filter_img.png
+    - assets/images/merge_sensor_img.png
+    - assets/images/virtual_object_img.png
+    - assets/images/virtual_sensor_img.jpg
+    - assets/info/data_fusion.md
+    - assets/info/kalman_filter.md
+    - assets/info/merge_sensor.md
+    - assets/info/report.pdf
+    - assets/info/virtual_object.md
+    - assets/info/virtual_sensor.md
   fonts:
     - family: Vazir
       fonts:

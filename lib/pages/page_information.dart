@@ -1,5 +1,9 @@
+import 'package:datafusion/pages/page_report.dart';
 import 'package:datafusion/widgets/widget_icon_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+
+import '../res.dart';
 
 class InformationPage extends StatefulWidget {
   @override
@@ -10,17 +14,11 @@ class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     var infos = [
-      Info('فیلتر کالمن', (c) {
-        return ListView(
-          children: <Widget>[
-
-          ],
-        );
-      }),
-      Info('تلفیق داده', null),
-      Info('جسم مجازی', null),
-      Info('سنسور مجازی', null),
-      Info('سنسور ادغام', null),
+      Info('تلفیق داده', Res.data_fusion),
+      Info('فیلتر کالمن', Res.kalman_filter),
+      Info('جسم مجازی', Res.virtual_object),
+      Info('سنسور مجازی', Res.virtual_sensor),
+      Info('سنسور ادغام', Res.merge_sensor),
     ];
 
     return Scaffold(
@@ -43,7 +41,26 @@ class _InformationPageState extends State<InformationPage> {
                       title: Text(info.title),
                       titleSpacing: 4.0,
                     ),
-                    body: info.builder(context),
+                    body: FutureBuilder<String>(
+                      future: DefaultAssetBundle.of(context)
+                          .loadString(info.mdFilePath),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Markdown(
+                            data: snapshot.data,
+                            imageBuilder: (uri) {
+                              return Image.asset(uri.path);
+                            },
+                            onTapLink: (link) async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (c) => ReportPage(
+                                      initialPage: int.tryParse(link))));
+                            },
+                          );
+                        }
+                        return Container();
+                      },
+                    ),
                   ),
                 ),
               );
@@ -57,7 +74,7 @@ class _InformationPageState extends State<InformationPage> {
 
 class Info {
   final String title;
-  final WidgetBuilder builder;
+  final String mdFilePath;
 
-  Info(this.title, this.builder);
+  Info(this.title, this.mdFilePath);
 }
