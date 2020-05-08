@@ -1,4 +1,4 @@
-package ir.aligator.datafusion
+package ir.aligator.lak
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
