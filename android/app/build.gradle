@@ -53,6 +53,20 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    splits {
+        abi {
+            enable true
+            // Resets the list of ABIs that Gradle should create APKs for to none.
+            reset()
+
+            // Specifies a list of ABIs that Gradle should create APKs for.
+            include "armeabi-v7a"
+
+            // Specifies that we do not want to also generate a universal APK that includes all ABIs.
+            universalApk false
+        }
+    }
 }
 
 flutter {
