@@ -1,7 +1,8 @@
 # Linear Algebra Kalman
-### by Ali Ghanbari
-TA : Gholamreza Ghasemi
-Dr. Meigoli
+### پروژه جبرخطی 
+استاد: دکتر میگلی
+حل تمرین: غلامرضا قاسمی
+تهیه کننده: علی قنبری
 
 #### build command
 `flutter build apk --target-platform android-arm`
