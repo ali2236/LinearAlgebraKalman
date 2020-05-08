@@ -12,11 +12,11 @@
 
 ## فایل ها
 
-برنامه اندروید: [lak-2.apk](/uploads/5f365a85e5a7e29db1841ab960bec229/lak-2.apk)
+برنامه اندروید: [دانلود](/uploads/5f365a85e5a7e29db1841ab960bec229/lak-2.apk)
 
-گزارش کتبی:[https://gitlab.com/ali-ghanbari/lak/-/raw/master/reports/ali%20ghanbari%20-%20report.docx](report.docx)
+گزارش کتبی:[دانلود](https://gitlab.com/ali-ghanbari/lak/-/raw/master/reports/ali%20ghanbari%20-%20report.docx)
 
-پروژه: [https://gitlab.com/ali-ghanbari/lak/-/archive/master/lak-master.zip](lak.zip)
+سرس پروژه: [دانلود](https://gitlab.com/ali-ghanbari/lak/-/archive/master/lak-master.zip)
 
 
 #### build command
