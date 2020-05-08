@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ir.aligator.datafusion">
+    package="ir.aligator.lak">
 
     <application
         android:name="io.flutter.app.FlutterApplication"
