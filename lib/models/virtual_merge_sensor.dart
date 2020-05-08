@@ -13,6 +13,7 @@ class VirtualMergedTempSensor2D extends VirtualTempSensor2D{
   VirtualMergedTempSensor2D(this.sensors, VirtualObject2D object) : super(double.nan, object, 'سنسور ادغام'){
     addListener((){
       updateTempsStream();
+      checkAccuracy();
     });
   }
 
@@ -20,6 +21,11 @@ class VirtualMergedTempSensor2D extends VirtualTempSensor2D{
   Stream<Matrix> measureTemps(){
     if(sensors.isEmpty) return StreamController<Matrix>.broadcast().stream;
     return Rx.merge(sensors.map((s) => s.temps));
+  }
+
+  @override
+  void calculateAccuracy(Matrix output) {
+    return super.calculateAccuracy(output);
   }
 
 }

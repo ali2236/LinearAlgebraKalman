@@ -63,9 +63,15 @@ class SimulationService extends ChangeNotifier {
 
       _object = VirtualObject2D.generate(columns, rows, minTemp, maxTemp);
 
-      sensors = [];
+      if(sensors==null) {
+        sensors = [];
+      } else {
+        sensors = sensors.map((e) => VirtualTempSensor2D(e.errorRate, object)).toList();
+      }
 
       mergedTempSensor = VirtualMergedTempSensor2D(sensors, object);
+
+      started = false;
 
       notifyListeners();
     } catch (e){

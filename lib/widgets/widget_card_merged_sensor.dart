@@ -14,16 +14,10 @@ class MergedSensorCard extends StatefulWidget {
 }
 
 class _MergedSensorCardState extends State<MergedSensorCard> {
-  VirtualMergedTempSensor2D sensor;
-
-  @override
-  void initState() {
-    super.initState();
-    sensor = simulation.mergedTempSensor;
-  }
 
   @override
   Widget build(BuildContext context) {
+    var sensor = simulation.mergedTempSensor;
     return AppCard(
       icon: Padding(
         padding: const EdgeInsets.symmetric(

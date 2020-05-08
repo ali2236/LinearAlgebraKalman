@@ -37,17 +37,17 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
   void _startAccuracyCheck(){
-    addListener(_checkAccuracy);
-    _checkAccuracy();
+    addListener(checkAccuracy);
+    checkAccuracy();
   }
 
   StreamSubscription _subscription;
-  void _checkAccuracy(){
+  void checkAccuracy(){
     if(_subscription!=null){
       _subscription.cancel();
     }
     _subscription = temps.listen((data){
-      _calculateAccuracy(data);
+      calculateAccuracy(data);
     });
   }
 
@@ -94,7 +94,7 @@ class VirtualTempSensor2D extends TempSensor {
   }
 
 
-  void _calculateAccuracy(Matrix output){
+  void calculateAccuracy(Matrix output){
     var _accuracy = accuracyCalculator.calculateAccuracy(output);
     accuracy.value = _accuracy;
     totalAccuracy += _accuracy;

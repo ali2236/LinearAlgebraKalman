@@ -108,17 +108,6 @@ class _VirtualObjectPageState extends State<VirtualObjectPage> {
                     }),
                   ),
                 ),
-/*                Divider(endIndent: 0, indent: 0, thickness: 0.1),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    'تنظیمات دما',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                    ),
-                  ),
-                ),*/
                 Form(
                   child: Column(
                     children: <Widget>[
