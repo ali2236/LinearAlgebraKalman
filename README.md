@@ -14,8 +14,5 @@
 
 گزارش کتبی:[دانلود](https://gitlab.com/ali-ghanbari/lak/-/raw/master/reports/ali%20ghanbari%20-%20report.docx)
 
-سرس پروژه: [دانلود](https://gitlab.com/ali-ghanbari/lak/-/archive/master/lak-master.zip)
-
-
 #### build command
 `flutter build apk --target-platform android-arm`
