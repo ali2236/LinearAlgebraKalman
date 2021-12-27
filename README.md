@@ -6,8 +6,6 @@
 
 حل تمرین: غلامرضا قاسمی
 
-تهیه کننده: علی قنبری
-
 ## فایل ها
 
 برنامه اندروید: [دانلود](https://gitlab.com/ali-ghanbari/lak/uploads/687f3f25db9410f3c8df97b2cdd1e616/lak-2.apk)
